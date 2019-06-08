@@ -7,6 +7,11 @@ export abstract class SelectAll<N> {
     abstract setOn(node: N): void;
     abstract setOff(node: N): void;
 
+    constructor(primary: N, secondary: N[]) {
+        this.primary = primary;
+        this.secondary = secondary;
+    }
+
     triggerPrimary() {
         if (this.isOn(this.primary)) {
             if (this.secondary.some(n => this.isOn(n))) {
@@ -17,9 +22,11 @@ export abstract class SelectAll<N> {
         }
     }
 
-    triggerSecondary(node: N = null) {
+    triggerSecondary() {
         if (this.secondary.some(n => this.isOn(n))) {
-            this.setOn(this.primary);
+            if (!this.isOn(this.primary)){
+                this.setOn(this.primary);
+            }
         }
     }
 }
