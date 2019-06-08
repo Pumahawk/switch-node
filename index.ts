@@ -14,7 +14,7 @@ export abstract class SelectAll<N> {
 
     triggerPrimary() {
         if (this.isOn(this.primary)) {
-            if (this.secondary.some(n => this.isOn(n))) {
+            if (!this.secondary.some(n => this.isOn(n))) {
                 this.secondary.forEach(n => this.setOn(n));
             }
         } else {
