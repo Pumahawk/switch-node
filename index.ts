@@ -42,3 +42,31 @@ export abstract class SelectAll<N> {
         }
     }
 }
+
+export class LazySelectAll<T> extends SelectAll<T> {
+    isOnFunction: (node: T) => boolean;
+    setOnFunction: (node: T) => void;
+    setOffFunction: (node: T) => void;
+    constructor(data: {
+        primary: T,
+        secondary: T[],
+        isOn(node: T): boolean,
+        setOn(node: T): void
+        setOff(node: T): void
+    }) {
+        super(data.primary, data.secondary);
+        this.isOnFunction = data.isOn;
+        this.setOnFunction = data.setOn;
+        this.setOffFunction = data.setOff;
+    }
+    isOn(node: T): boolean {
+        return this.isOnFunction(node);
+    }
+    setOn(node: T): void {
+        return this.setOnFunction(node);
+    }
+    setOff(node: T): void {
+        return this.setOffFunction(node);
+    }
+
+}
